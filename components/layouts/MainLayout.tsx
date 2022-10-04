@@ -21,8 +21,8 @@ export const MainLayout: FC<Props> = ({ title, children }) => {
                 <title>{title}</title>
             </Head>
 
-            <Grid container>
-                <Grid item sx={1} sm={1} hidden={!matches} style={{ boxShadow: '0px -6px 5px 0px rgb(0 0 0 / 20%)'}}>
+            <Grid container style={{height: 'calc(100vh)'}}>
+                <Grid item xs={1} sm={1} lg={1} hidden={!matches} style={{ boxShadow: '0px -6px 5px 0px rgb(0 0 0 / 20%)'}}>
                     <Sidebar />
                 </Grid>
                 <Grid item xs>
