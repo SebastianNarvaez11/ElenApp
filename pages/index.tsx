@@ -5,7 +5,7 @@ import { MainLayout } from '../components/layouts'
 const Home: NextPage = () => {
   return (
     <MainLayout title='Elen App'>
-      <Typography>sebas</Typography>
+      <Typography variant='h4'>Bienvenido Sebas!</Typography>
     </MainLayout>
   )
 }

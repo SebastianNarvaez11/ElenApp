@@ -22,13 +22,12 @@ export const MainLayout: FC<Props> = ({ title, children }) => {
             </Head>
 
             <Grid container style={{height: 'calc(100vh)'}}>
-                <Grid item xs={1} sm={1} lg={1} hidden={!matches} style={{ boxShadow: '0px -6px 5px 0px rgb(0 0 0 / 20%)'}}>
+                <Grid item xs={1} sm={1} lg={1} hidden={!matches} style={{ borderRight: '1px solid #E4EAF2'}}>
                     <Sidebar />
                 </Grid>
                 <Grid item xs>
                     <Navbar />
                     <main style={{ padding: 20 }}>
-                        <span>{`(min-width:600px) matches: ${matches}`}</span>
                         {children}
                     </main>
                 </Grid>
