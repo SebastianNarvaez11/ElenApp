@@ -27,7 +27,7 @@ export const MainLayout: FC<Props> = ({ title, children }) => {
                 </Grid>
                 <Grid item xs>
                     <Navbar />
-                    <main style={{ padding: 20 }}>
+                    <main style={{ padding: 5 }}>
                         {children}
                     </main>
                 </Grid>
