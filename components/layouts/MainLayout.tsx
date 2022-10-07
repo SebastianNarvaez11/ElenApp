@@ -22,10 +22,10 @@ export const MainLayout: FC<Props> = ({ title, children }) => {
             </Head>
 
             <Grid container style={{height: 'calc(100vh)'}}>
-                <Grid item xs={1} sm={1} lg={1} hidden={!matches} style={{ borderRight: '1px solid #E4EAF2'}}>
+                <Grid item xs={0} sm={1} lg={1} hidden={!matches} style={{ borderRight: '1px solid #E4EAF2'}}>
                     <Sidebar />
                 </Grid>
-                <Grid item xs>
+                <Grid item xs={12} sm={11} lg={11}>
                     <Navbar />
                     <main style={{ padding: 5 }}>
                         {children}

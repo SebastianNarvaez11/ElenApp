@@ -8,7 +8,7 @@ export const Navbar = () => {
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            Elen App
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
