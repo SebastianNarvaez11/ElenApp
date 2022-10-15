@@ -42,3 +42,16 @@ body::-webkit-scrollbar-thumb {
     /* border: 2px solid orange; */
     /* creates padding around scroll thumb */
 }
+
+.add_button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    border: 1px dashed rgb(27, 25, 25);
+}
+
+
+.dragging {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    border: 1px dashed rgb(27, 25, 25);
+}
