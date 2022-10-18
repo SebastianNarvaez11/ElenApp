@@ -31,8 +31,8 @@ const FinancePage: NextPage = () => {
     return (
         <MainLayout title='Elen App'>
             <Typography variant='h4' style={{ marginLeft: 5 }}>Finanzas</Typography>
-            <Grid container style={{ marginTop: 30 }}>
-                <Grid item xs={12} sm={3} md={2} lg={2} style={{ padding: 20, borderRight: '1px solid #E4EAF2' }} >
+            <Grid container style={{ marginTop: 10 }}>
+                <Grid item xs={12} sm={3} md={2} lg={2} style={{ padding: 20 }} >
 
                     <Typography>Gastos:</Typography>
                     <div className='add_button' style={{ padding: 3, maxWidth: 160, marginTop: 10, cursor: 'pointer' }} onClick={() => dispatch(set_is_adding_expense())}>
@@ -68,7 +68,7 @@ const FinancePage: NextPage = () => {
 
                 <Grid item xs={12} sm={9} md={10} lg={10}>
                     <Typography align='center' textTransform='uppercase' variant='h6'>{format(current_date, 'MMMM', { locale: es })}</Typography>
-                    <div className='style_scrooll' style={{ overflowX: 'auto', overflowY: 'auto', whiteSpace: 'nowrap', margin: 30, padding: 10 }}>
+                    <div className='style_scrooll' style={{ overflowX: 'auto', overflowY: 'auto', whiteSpace: 'nowrap', padding: 10 }}>
 
                         {/* TODO: cambiar el key por el _id */}
                         {balances.map((balance, index) => (

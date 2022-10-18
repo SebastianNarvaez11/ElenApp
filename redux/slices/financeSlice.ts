@@ -27,6 +27,10 @@ export const financeSlice = createSlice({
             state.balances = [...state.balances, action.payload]
         },
 
+        del_balance: (state, action: PayloadAction<string>) => {
+            state.balances = state.balances.filter(balance => balance._id !== action.payload)
+        },
+
         update_balance: (state, action: PayloadAction<Balance>) => {
             state.balances = state.balances.map(balance => balance._id === action.payload._id ? (balance = action.payload) : balance)
         },
@@ -43,5 +47,5 @@ export const financeSlice = createSlice({
 
 })
 
-export const { add_balance, add_item, set_items, set_balances, update_balance } = financeSlice.actions
+export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance } = financeSlice.actions
 export default financeSlice.reducer

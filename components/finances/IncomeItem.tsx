@@ -1,15 +1,19 @@
 import { FC, DragEvent } from 'react'
-import { Paper, Typography } from '@mui/material'
+
+import { Paper, Typography, Box, IconButton } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear';
+
 import { Item } from '../../interfaces'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { set_is_dragging } from '../../redux/slices/uiSlice'
 import { toMoney } from '../../utils'
 
 interface Props {
-    item: Item
+    item: Item,
+    deleteItemFromBalance?: (id_item: string) => void
 }
 
-export const IncomeItem: FC<Props> = ({ item }) => {
+export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
 
     const { isDragging } = useAppSelector(state => state.ui)
     const dispatch = useAppDispatch()
@@ -40,8 +44,15 @@ export const IncomeItem: FC<Props> = ({ item }) => {
                 maxWidth: 160,
                 opacity: isDragging === 'income' ? 0.2 : 1,
                 transition: 'all .3s'
-            }} ><Typography color='white' fontSize={10} fontWeight='bold'>{item.concept}</Typography>
-            <Typography color='white' align='right' fontSize={12} fontWeight='bold'>{toMoney(item.value)}</Typography>
+            }} >
+            <Box display='flex'>
+                <Typography color='white' fontSize={13}>{toMoney(item.value)}</Typography>
+                <Box flex={1} />
+                {deleteItemFromBalance &&
+                    <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => deleteItemFromBalance(item._id)} />
+                }
+            </Box>
+            <Typography color='white' align='right' fontSize={11}>{item.concept}</Typography>
         </Paper>
     )
 }
