@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../database'
 import { Balance } from '../../../../interfaces'
+import { ItemModel } from '../../../../models'
 import BalanceModel from '../../../../models/Balance'
 
 type Data =
@@ -30,10 +31,23 @@ const putBalance = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         await db.connect()
         const balance = await BalanceModel.findById(id)
 
-        const { items = balance?.items } = req.body
+        const { items = balance?.items, add_item_id, del_item_id } = req.body
 
+        // actualizamos el balance
         const new_balance = await BalanceModel.findByIdAndUpdate(id, { items }, { runValidators: true, new: true })
             .populate('items')
+
+        // actualizamos el item que fue añadido
+        if (add_item_id) {
+            console.log('se esta actulizando un item añadido');
+            
+            await ItemModel.findByIdAndUpdate(add_item_id, { $push: { balances: id } })
+        }
+
+        // actualizamos el item que fue eliminado
+        if (del_item_id) {
+            await ItemModel.findByIdAndUpdate(add_item_id, { $pull: { balances: id } })
+        }
 
         await db.disconnect()
 

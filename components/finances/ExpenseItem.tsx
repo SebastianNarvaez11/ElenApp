@@ -7,6 +7,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Item } from '../../interfaces'
 import { set_is_dragging } from '../../redux/slices/uiSlice'
 import { toMoney } from '../../utils'
+import { deleteItem } from '../../redux/actions/financesActions';
 
 interface Props {
     item: Item,
@@ -48,8 +49,10 @@ export const ExpenseItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
             <Box display='flex'>
                 <Typography color='white' fontSize={13}>{toMoney(item.value)}</Typography>
                 <Box flex={1} />
-                {deleteItemFromBalance &&
+                {deleteItemFromBalance ?
                     <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => deleteItemFromBalance(item._id)} />
+                    :
+                    <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => dispatch(deleteItem(item._id))} />
                 }
             </Box>
             <Typography color='white' align='right' fontSize={11}>{item.concept}</Typography>

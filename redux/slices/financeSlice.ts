@@ -43,9 +43,12 @@ export const financeSlice = createSlice({
             state.items = [action.payload, ...state.items]
         },
 
+        del_item: (state, action: PayloadAction<string>) => {
+            state.items = state.items.filter(item => item._id !== action.payload)
+        }
     }
 
 })
 
-export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance } = financeSlice.actions
+export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance, del_item } = financeSlice.actions
 export default financeSlice.reducer

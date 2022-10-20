@@ -9,6 +9,7 @@ export interface Item {
     _id: string,
     concept: string,
     value: number,
+    balances: Balance[],
     category: CategoryItem,
     type: TypeItem,
     createdAt: number,

@@ -52,6 +52,7 @@ const postItems = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         await newItem.save()
         await db.disconnect()
         return res.status(200).json(newItem)
+        
     } catch (error) {
         await db.disconnect()
         console.log(error);

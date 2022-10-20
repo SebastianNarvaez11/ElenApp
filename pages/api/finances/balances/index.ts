@@ -28,11 +28,13 @@ const getBalances = async (res: NextApiResponse<Data>) => {
 
     try {
         await db.connect()
-        const balance: Balance[] = await BalanceModel.find().sort({ date: 'ascending' })
+        const balances: Balance[] = await BalanceModel.find().sort({ date: 'ascending' })
             .populate('items')
 
+        console.log(balances);
+
         await db.disconnect()
-        return res.status(200).json(balance)
+        return res.status(200).json(balances)
 
     } catch (error) {
         await db.disconnect()

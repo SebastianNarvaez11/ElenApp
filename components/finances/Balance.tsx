@@ -35,7 +35,7 @@ export const Balance: FC<Props> = ({ balance }) => {
 
         const items: Item[] = [...balance.items, item]
 
-        dispatch(updateBalance(balance._id, items))
+        dispatch(updateBalance(balance._id, items, item._id ,undefined))
     }
 
     const onDragOverExpense = (event: DragEvent) => {
@@ -49,6 +49,8 @@ export const Balance: FC<Props> = ({ balance }) => {
             return event.preventDefault()
         }
     }
+
+
 
     const deleteItemFromBalance = (id_item: string) => {
         const items = balance.items.filter(item => id_item !== item._id)
