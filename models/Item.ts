@@ -1,12 +1,11 @@
 import mongoose, { Model, Schema } from 'mongoose'
 import { Item } from '../interfaces'
-import BalanceModel from './Balance'
 
 const itemSchema = new Schema({
 
     concept: { type: String, required: [true, 'El concepto es obligatorio'] },
     value: { type: Number, required: [true, 'El valor es obligatorio'] },
-    balances: [{type: Schema.Types.ObjectId, ref: BalanceModel}],
+    balances: [{type: Schema.Types.ObjectId, ref: 'Balance'}],
     category: {
         type: String,
         enum: {
