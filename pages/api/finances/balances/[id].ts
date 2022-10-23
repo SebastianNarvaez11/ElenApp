@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../database'
-import { Balance } from '../../../../interfaces'
+import { IBalance } from '../../../../interfaces'
 import { ItemModel } from '../../../../models'
 import BalanceModel from '../../../../models/Balance'
 
 type Data =
     | { message: string }
-    | Balance
+    | IBalance
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -40,13 +40,14 @@ const putBalance = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         // actualizamos el item que fue añadido
         if (add_item_id) {
             console.log('se esta actulizando un item añadido');
-            
+
             await ItemModel.findByIdAndUpdate(add_item_id, { $push: { balances: id } })
         }
 
         // actualizamos el item que fue eliminado
         if (del_item_id) {
-            await ItemModel.findByIdAndUpdate(add_item_id, { $pull: { balances: id } })
+            console.log('se esta actulizando un item eliminado');
+            await ItemModel.findByIdAndUpdate(del_item_id, { $pull: { balances: id } })
         }
 
         await db.disconnect()
@@ -67,7 +68,12 @@ const deleteBalance = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     try {
         await db.connect()
-        await BalanceModel.findByIdAndDelete(id)
+        const balance = await BalanceModel.findById(id)
+        await balance?.remove()
+
+        // se actualizan todos los items que estaban en el balance eliminado
+        await ItemModel.updateMany({ _id: balance?.items }, { $pull: { balances: id } })
+
         await db.disconnect()
 
         return res.status(200).json({ message: 'Balance eliminado correctamente' })

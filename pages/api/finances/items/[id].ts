@@ -1,10 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../database'
+import { IBalance } from '../../../../interfaces'
 import { ItemModel } from '../../../../models'
+import BalanceModel from '../../../../models/Balance'
 
-type Data = {
-    message: string
-}
+type Data =
+    | { message: string }
+    | IBalance[]
+
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -26,9 +29,19 @@ const deleteItem = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     try {
         await db.connect()
-        await ItemModel.findByIdAndDelete(id)
+        const item = await ItemModel.findById(id)
+        await item?.remove()
+
+        // se actualizan todos los balances que contenian el item elimnado
+        await BalanceModel.updateMany({ _id: item?.balances }, { $pull: { items: id } })
+
+        // se obtienen todos los balances nuevamente para actualizar el state del frontend
+        const balances: IBalance[] = await BalanceModel.find().sort({ date: 'ascending' })
+            .populate('items')
+
         await db.disconnect()
-        return res.status(200).json({ message: 'Item eliminado correctamente' })
+
+        return res.status(200).json(balances)
 
     } catch (error) {
         await db.disconnect()

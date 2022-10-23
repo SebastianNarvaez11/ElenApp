@@ -1,10 +1,9 @@
 import { useFormik } from 'formik';
 
-import { TextField, FormControl, Select, InputLabel, MenuItem, SelectChangeEvent, Button, Dialog, DialogTitle, DialogContent, DialogActions, Grid } from "@mui/material"
+import { TextField, FormControl, Select, InputLabel, MenuItem, Button, Dialog, DialogTitle, DialogContent, DialogActions, Grid } from "@mui/material"
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { set_is_adding_expense } from '../../redux/slices/uiSlice';
 import { Categories } from '../../json';
-import { add_item } from '../../redux/slices/financeSlice';
 import { addItem } from '../../redux/actions/financesActions';
 
 export const AddExpenseItem = () => {

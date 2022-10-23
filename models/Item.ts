@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from 'mongoose'
-import { Item } from '../interfaces'
+import { IItem } from '../interfaces'
 
 const itemSchema = new Schema({
 
@@ -24,6 +24,6 @@ const itemSchema = new Schema({
 
 })
 
-const ItemModel: Model<Item> = mongoose.models.Item || mongoose.model('Item', itemSchema)
+const ItemModel: Model<IItem> = mongoose.models.Item || mongoose.model('Item', itemSchema)
 
 export default ItemModel

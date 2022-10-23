@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Balance, Item } from '../../interfaces';
+import { IBalance, IItem } from '../../interfaces';
 
 
 export interface BalanceState {
-    balances: Balance[],
-    items: Item[]
+    balances: IBalance[],
+    items: IItem[]
 }
 
 const initialState: BalanceState = {
@@ -19,11 +19,11 @@ export const financeSlice = createSlice({
     initialState,
     reducers: {
 
-        set_balances: (state, action: PayloadAction<Balance[]>) => {
+        set_balances: (state, action: PayloadAction<IBalance[]>) => {
             state.balances = action.payload
         },
 
-        add_balance: (state, action: PayloadAction<Balance>) => {
+        add_balance: (state, action: PayloadAction<IBalance>) => {
             state.balances = [...state.balances, action.payload]
         },
 
@@ -31,15 +31,15 @@ export const financeSlice = createSlice({
             state.balances = state.balances.filter(balance => balance._id !== action.payload)
         },
 
-        update_balance: (state, action: PayloadAction<Balance>) => {
+        update_balance: (state, action: PayloadAction<IBalance>) => {
             state.balances = state.balances.map(balance => balance._id === action.payload._id ? (balance = action.payload) : balance)
         },
 
-        set_items: (state, action: PayloadAction<Item[]>) => {
+        set_items: (state, action: PayloadAction<IItem[]>) => {
             state.items = action.payload
         },
 
-        add_item: (state, action: PayloadAction<Item>) => {
+        add_item: (state, action: PayloadAction<IItem>) => {
             state.items = [action.payload, ...state.items]
         },
 

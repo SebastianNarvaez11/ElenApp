@@ -1,21 +1,21 @@
-export interface Balance {
+export interface IBalance {
     _id: string,
     date : number,
     createdAt: number,
-    items: Item[]
+    items: IItem[]
 }
 
-export interface Item {
+export interface IItem {
     _id: string,
     concept: string,
     value: number,
-    balances: Balance[],
-    category: CategoryItem,
-    type: TypeItem,
+    balances: IBalance[],
+    category: ICategoryItem,
+    type: ITypeItem,
     createdAt: number,
 }
 
-export type CategoryItem =
+export type ICategoryItem =
     | 'Hogar'
     | 'Educacion'
     | 'Alimentacion'
@@ -24,6 +24,6 @@ export type CategoryItem =
     | 'Trabajo'
     | 'Recreacion'
 
-export type TypeItem =
+export type ITypeItem =
     | 'income'
     | 'expense'

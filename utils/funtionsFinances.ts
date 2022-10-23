@@ -1,6 +1,6 @@
-import { Item } from "../interfaces";
+import { IItem } from "../interfaces";
 
-export const totalValueItems = (items: Item[]) => {
+export const totalValueItems = (items: IItem[]) => {
 
     let total: number = 0
     items.map(item => total = total + item.value)

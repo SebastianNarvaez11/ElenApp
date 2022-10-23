@@ -1,15 +1,16 @@
 import { FC, DragEvent } from 'react'
 
-import { Paper, Typography, Box, IconButton } from '@mui/material'
+import { Paper, Typography, Box } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { Item } from '../../interfaces'
+import { IItem } from '../../interfaces'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { set_is_dragging } from '../../redux/slices/uiSlice'
 import { toMoney } from '../../utils'
+import { deleteItem } from '../../redux/actions/financesActions';
 
 interface Props {
-    item: Item,
+    item: IItem,
     deleteItemFromBalance?: (id_item: string) => void
 }
 
@@ -30,6 +31,7 @@ export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
 
     return (
         <Paper
+            className='animate__animated animate__fadeIn'
             draggable
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
@@ -48,8 +50,10 @@ export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
             <Box display='flex'>
                 <Typography color='white' fontSize={13}>{toMoney(item.value)}</Typography>
                 <Box flex={1} />
-                {deleteItemFromBalance &&
+                {deleteItemFromBalance ?
                     <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => deleteItemFromBalance(item._id)} />
+                    :
+                    <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => dispatch(deleteItem(item._id))} />
                 }
             </Box>
             <Typography color='white' align='right' fontSize={11}>{item.concept}</Typography>

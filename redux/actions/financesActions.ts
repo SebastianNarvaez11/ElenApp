@@ -1,11 +1,11 @@
 import { AppDispatch } from './../store';
 import { financeApi } from '../../apis';
-import { Balance, Item } from '../../interfaces';
+import { IBalance, IItem } from '../../interfaces';
 import { add_balance, add_item, del_balance, del_item, set_balances, set_items, update_balance } from '../slices/financeSlice';
 
 export const fetchItems = () => (dispatch: AppDispatch) => {
 
-    financeApi.get<Item[]>('/items')
+    financeApi.get<IItem[]>('/items')
         .then(response => {
             dispatch(set_items(response.data))
         })
@@ -17,7 +17,7 @@ export const fetchItems = () => (dispatch: AppDispatch) => {
 
 export const addItem = (concept: string, value: number, category: string, type: string) => (dispatch: AppDispatch) => {
 
-    financeApi.post<Item>('/items', { concept, value, category, type })
+    financeApi.post<IItem>('/items', { concept, value, category, type })
         .then(response => {
             dispatch(add_item(response.data))
         })
@@ -29,7 +29,7 @@ export const addItem = (concept: string, value: number, category: string, type: 
 
 export const fetchBalances = () => (dispatch: AppDispatch) => {
 
-    financeApi.get<Balance[]>('/balances')
+    financeApi.get<IBalance[]>('/balances')
         .then(response => {
             dispatch(set_balances(response.data))
         })
@@ -41,7 +41,7 @@ export const fetchBalances = () => (dispatch: AppDispatch) => {
 
 export const AddBalance = (date: number) => (dispatch: AppDispatch) => {
 
-    financeApi.post<Balance>('/balances', { date })
+    financeApi.post<IBalance>('/balances', { date })
         .then(response => {
             dispatch(add_balance(response.data))
         })
@@ -51,10 +51,15 @@ export const AddBalance = (date: number) => (dispatch: AppDispatch) => {
 }
 
 
+// esta funcion recibe: 
+// 1. el id del balance ha actualizar
+// 2. el listado actualizado de los items que ahora contien el balance
+// 3. el id del item que se agrego al balance (opcional)
+// 4. el id del item que se elimino del balance (opcional)
 
-export const updateBalance = (id: string, items: Item[], add_item_id?: string, del_item_id?: string) => (dispatch: AppDispatch) => {
+export const updateBalance = (id: string, items: IItem[], add_item_id?: string, del_item_id?: string) => (dispatch: AppDispatch) => {
 
-    financeApi.put<Balance>(`/balances/${id}`, { items, add_item_id, del_item_id })
+    financeApi.put<IBalance>(`/balances/${id}`, { items, add_item_id, del_item_id })
         .then(response => {
             dispatch(update_balance(response.data))
         })
@@ -80,9 +85,10 @@ export const deleteBalance = (id: string) => (dispatch: AppDispatch) => {
 
 export const deleteItem = (id: string) => (dispatch: AppDispatch) => {
 
-    financeApi.delete(`/items/${id}`)
+    financeApi.delete<IBalance[]>(`/items/${id}`)
         .then(response => {
             dispatch(del_item(id))
+            dispatch(set_balances(response.data))
         })
         .catch(error => {
             console.log(error);

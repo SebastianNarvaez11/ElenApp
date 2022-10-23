@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from 'mongoose'
-import { Balance } from './../interfaces/finances';
+import { IBalance } from './../interfaces/finances';
 
 const BalanceSchema = new Schema({
 
@@ -9,6 +9,6 @@ const BalanceSchema = new Schema({
     
 })
 
-const BalanceModel: Model<Balance> = mongoose.models.Balance || mongoose.model('Balance', BalanceSchema)
+const BalanceModel: Model<IBalance> = mongoose.models.Balance || mongoose.model('Balance', BalanceSchema)
 
 export default BalanceModel

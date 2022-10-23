@@ -5,7 +5,7 @@ import { es } from "date-fns/locale"
 import { Grid, Paper, Typography, Box } from "@mui/material"
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { Balance as IBalance, Item } from "../../interfaces"
+import { IBalance, IItem } from "../../interfaces"
 import { ExpenseItem } from "./ExpenseItem"
 import { IncomeItem } from "./IncomeItem"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
@@ -27,16 +27,16 @@ export const Balance: FC<Props> = ({ balance }) => {
 
 
     const onDrop = (event: DragEvent) => {
-        const item: Item = JSON.parse(event.dataTransfer.getData('item'))
-
-        const existeItem = balance.items.find((i) => i._id === item._id)
+        const item: IItem = JSON.parse(event.dataTransfer.getData('item'))
+        const existeItem = balance.items.find((it) => it._id === item._id)
 
         if (existeItem) return
 
-        const items: Item[] = [...balance.items, item]
-
-        dispatch(updateBalance(balance._id, items, item._id ,undefined))
+        const items: IItem[] = [...balance.items, item]
+        dispatch(updateBalance(balance._id, items, item._id, undefined))
     }
+
+
 
     const onDragOverExpense = (event: DragEvent) => {
         if (isDragging === 'expense') {
@@ -54,7 +54,7 @@ export const Balance: FC<Props> = ({ balance }) => {
 
     const deleteItemFromBalance = (id_item: string) => {
         const items = balance.items.filter(item => id_item !== item._id)
-        dispatch(updateBalance(balance._id, items))
+        dispatch(updateBalance(balance._id, items, undefined, id_item))
     }
 
     const onDeleteBalance = () => {
@@ -62,12 +62,23 @@ export const Balance: FC<Props> = ({ balance }) => {
     }
 
     return (
-        <Paper elevation={1} style={{ display: 'inline-table', width: 350, marginRight: 10, padding: 15, marginBottom: 20, borderRadius: 5 }}>
+        <Paper
+            className='animate__animated animate__fadeIn'
+            elevation={1}
+            style={{
+                display: 'inline-table',
+                width: 350,
+                marginRight: 15,
+                padding: 15,
+                marginBottom: 20,
+                borderRadius: 5
+            }}>
 
             <Box display='flex'>
+                <Box flex={1} />
                 <Typography align="center" marginBottom={1}>{format(balance.date, 'dd MMMM yyyy', { locale: es })}</Typography>
                 <Box flex={1} />
-                <ClearIcon fontSize='small' style={{cursor: 'pointer' }} onClick={onDeleteBalance} />
+                <ClearIcon fontSize='small' style={{ cursor: 'pointer' }} onClick={onDeleteBalance} />
             </Box>
 
 

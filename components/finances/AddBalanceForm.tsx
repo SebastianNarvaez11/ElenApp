@@ -1,13 +1,14 @@
 
 import { useMemo, useState } from 'react';
 import { Box, Typography, InputLabel, Select, FormControl, MenuItem, Button, SelectChangeEvent } from '@mui/material'
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { set_is_adding_balance } from '../../redux/slices/uiSlice';
 import { getAllDaysInMonth } from '../../utils';
 import { AddBalance } from '../../redux/actions/financesActions';
 
 export const AddBalanceForm = () => {
 
+    const { monthSelected } = useAppSelector(state => state.ui)
     const dispatch = useAppDispatch()
 
     const current_date = new Date()
@@ -25,6 +26,7 @@ export const AddBalanceForm = () => {
     const saveBalance = () => {
         const date = new Date()
         date.setDate(Number(value))
+        date.setMonth(monthSelected)
 
         dispatch(AddBalance(Number(date)))
         dispatch(set_is_adding_balance())

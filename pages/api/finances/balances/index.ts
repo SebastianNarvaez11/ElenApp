@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../database'
-import { Balance } from '../../../../interfaces'
+import { IBalance } from '../../../../interfaces'
 import BalanceModel from '../../../../models/Balance'
 
 type Data =
     | { message: string }
-    | Balance[]
-    | Balance
+    | IBalance[]
+    | IBalance
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -28,10 +28,8 @@ const getBalances = async (res: NextApiResponse<Data>) => {
 
     try {
         await db.connect()
-        const balances: Balance[] = await BalanceModel.find().sort({ date: 'ascending' })
+        const balances: IBalance[] = await BalanceModel.find().sort({ date: 'ascending' })
             .populate('items')
-
-        console.log(balances);
 
         await db.disconnect()
         return res.status(200).json(balances)

@@ -1,16 +1,16 @@
 import { FC, DragEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 
-import { Box, IconButton, Paper, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { Item } from '../../interfaces'
+import { IItem } from '../../interfaces'
 import { set_is_dragging } from '../../redux/slices/uiSlice'
 import { toMoney } from '../../utils'
 import { deleteItem } from '../../redux/actions/financesActions';
 
 interface Props {
-    item: Item,
+    item: IItem,
     deleteItemFromBalance?: (id_item: string) => void
 }
 
@@ -31,6 +31,7 @@ export const ExpenseItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
 
     return (
         <Paper
+            className='animate__animated animate__fadeIn'
             draggable
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}

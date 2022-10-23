@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../../database'
-import { Item } from '../../../../interfaces'
+import { IItem } from '../../../../interfaces'
 import { ItemModel } from '../../../../models'
 
 type Data =
     | { message: string }
-    | Item[]
-    | Item
+    | IItem[]
+    | IItem
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -29,7 +29,7 @@ const getItems = async (res: NextApiResponse<Data>) => {
 
     try {
         await db.connect()
-        const items: Item[] = await ItemModel.find().sort({ createdAt: 'descending' })
+        const items: IItem[] = await ItemModel.find().sort({ createdAt: 'descending' })
         await db.disconnect()
 
         res.status(200).json(items)
