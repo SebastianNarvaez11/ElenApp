@@ -13,7 +13,6 @@ export const Daily = () => {
             <Box flex={{ xs: 20, sm: 5, md: 2 }}>
                 <Paper elevation={1}>
                     {items.map(item => {
-
                         if (item.type === 'expense') {
                             return (
                                 <ExpenseItem item={item} />
@@ -28,6 +27,5 @@ export const Daily = () => {
             </Box>
             <Box flex={1} />
         </Box>
-
     )
 }

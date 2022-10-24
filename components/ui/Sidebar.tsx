@@ -29,8 +29,8 @@ export const Sidebar = () => {
                 </Link>
             </Grid>
             <Grid item>   
-                <Link href='/finance/planner'>
-                    <IconButton aria-label="Finanzas" sx={{ color: asPath === '/finance/planner' ? '#7C6DEA' : '#494969', fontSize: 25 }}>
+                <Link href='/finance'>
+                    <IconButton aria-label="Finanzas" sx={{ color: asPath === '/finance' ? '#7C6DEA' : '#494969', fontSize: 25 }}>
                         <SaveIcon fontSize="inherit" />
                     </IconButton>
                 </Link>
