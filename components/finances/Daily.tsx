@@ -34,6 +34,5 @@ export const Daily = () => {
                 })}
             </Paper>
         </Box>
-
     )
 }
