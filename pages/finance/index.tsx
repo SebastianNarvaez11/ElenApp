@@ -13,7 +13,7 @@ const FinancePage: NextPage = () => {
     const { items } = useAppSelector(state => state.finance)
     const dispatch = useAppDispatch()
 
-    const [screen, setScreen] = useState(true)
+    const [screen, setScreen] = useState(false)
 
     return (
         <MainLayout title='Elen App'>
