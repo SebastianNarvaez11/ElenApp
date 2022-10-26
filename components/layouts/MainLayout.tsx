@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect } from "react"
 import Head from 'next/head'
 import { Grid, useMediaQuery } from "@mui/material"
 import { Navbar, Sidebar } from "../ui"
-import { fetchBalances, fetchItems } from "../../redux/actions/financesActions"
+import { fetchBalances, fetchDailies, fetchItems } from "../../redux/actions/financesActions"
 import { useAppDispatch } from "../../redux/hooks"
 
 interface Props {
@@ -19,6 +19,7 @@ export const MainLayout: FC<Props> = ({ title, children }) => {
     useEffect(() => {
         dispatch(fetchItems())
         dispatch(fetchBalances())
+        dispatch(fetchDailies())
     }, [dispatch])
 
 

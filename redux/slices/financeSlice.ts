@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IBalance, IItem } from '../../interfaces';
+import { IBalance, IDaily, IItem } from '../../interfaces';
 
 
 export interface BalanceState {
     balances: IBalance[],
-    items: IItem[]
+    items: IItem[],
+    dailies: IDaily[]
 }
 
 const initialState: BalanceState = {
     balances: [],
-    items: []
+    items: [],
+    dailies: []
 }
 
 
@@ -45,10 +47,14 @@ export const financeSlice = createSlice({
 
         del_item: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter(item => item._id !== action.payload)
+        },
+
+        set_dailies: (state, action: PayloadAction<IDaily[]>) => {
+            state.dailies = action.payload
         }
     }
 
 })
 
-export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance, del_item } = financeSlice.actions
+export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance, del_item, set_dailies} = financeSlice.actions
 export default financeSlice.reducer

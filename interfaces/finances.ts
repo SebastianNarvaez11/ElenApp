@@ -15,6 +15,13 @@ export interface IItem {
     createdAt: number,
 }
 
+export interface IDaily {
+    _id: string,
+    date: number,
+    items: IItem[]
+    createdAt: number,
+}
+
 export type ICategoryItem =
     | 'Hogar'
     | 'Educacion'
