@@ -51,10 +51,14 @@ export const financeSlice = createSlice({
 
         set_dailies: (state, action: PayloadAction<IDaily[]>) => {
             state.dailies = action.payload
+        },
+
+        update_daily: (state, action: PayloadAction<IDaily>) => {
+            state.dailies = state.dailies.map(daily => daily._id === action.payload._id ? (daily = action.payload) : daily)
         }
     }
 
 })
 
-export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance, del_item, set_dailies} = financeSlice.actions
+export const { add_balance, add_item, set_items, set_balances, update_balance, del_balance, del_item, set_dailies, update_daily } = financeSlice.actions
 export default financeSlice.reducer

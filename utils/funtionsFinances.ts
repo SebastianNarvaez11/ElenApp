@@ -1,4 +1,4 @@
-import { IItem } from "../interfaces";
+import { IDaily, IItem } from "../interfaces";
 
 export const totalValueItems = (items: IItem[]) => {
 
@@ -7,6 +7,13 @@ export const totalValueItems = (items: IItem[]) => {
     return total
 }
 
-export const toMoney = (amount : number) => {
+export const toMoney = (amount: number) => {
     return '$ ' + amount.toLocaleString('co')
 };
+
+
+export const getDailyByMonth = (month: number, dailies: IDaily[]) => {
+    const daily = dailies.find(daily => new Date(daily.date).getMonth() === month)
+
+    return daily
+}

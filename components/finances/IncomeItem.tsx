@@ -11,10 +11,11 @@ import { deleteItem } from '../../redux/actions/financesActions';
 
 interface Props {
     item: IItem,
-    deleteItemFromBalance?: (id_item: string) => void
+    deleteItemFromBalance?: (id_item: string) => void,
+    deleteItemFromDaily?: (id_item: string) => void
 }
 
-export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
+export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance, deleteItemFromDaily }) => {
 
     const { isDragging } = useAppSelector(state => state.ui)
     const dispatch = useAppDispatch()
@@ -50,11 +51,18 @@ export const IncomeItem: FC<Props> = ({ item, deleteItemFromBalance }) => {
             <Box display='flex'>
                 <Typography color='white' fontSize={13}>{toMoney(item.value)}</Typography>
                 <Box flex={1} />
-                {deleteItemFromBalance ?
+                {deleteItemFromBalance &&
                     <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => deleteItemFromBalance(item._id)} />
-                    :
+                }
+
+                {deleteItemFromDaily &&
+                    <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => deleteItemFromDaily(item._id)} />
+                }
+
+                {!deleteItemFromDaily && !deleteItemFromBalance &&
                     <ClearIcon fontSize='small' style={{ height: 15, width: 15, cursor: 'pointer' }} onClick={() => dispatch(deleteItem(item._id))} />
                 }
+                
             </Box>
             <Typography color='white' align='right' fontSize={11}>{item.concept}</Typography>
         </Paper>

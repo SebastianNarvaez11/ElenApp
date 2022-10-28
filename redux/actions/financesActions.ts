@@ -1,7 +1,7 @@
 import { AppDispatch } from './../store';
 import { financeApi } from '../../apis';
 import { IBalance, IDaily, IItem } from '../../interfaces';
-import { add_balance, add_item, del_balance, del_item, set_balances, set_dailies, set_items, update_balance } from '../slices/financeSlice';
+import { add_balance, add_item, del_balance, del_item, set_balances, set_dailies, set_items, update_balance, update_daily } from '../slices/financeSlice';
 
 export const fetchItems = () => (dispatch: AppDispatch) => {
 
@@ -113,6 +113,18 @@ export const fetchDailies = () => (dispatch: AppDispatch) => {
     financeApi.get<IDaily[]>('/daily')
         .then(response => {
             dispatch(set_dailies(response.data))
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+
+export const updateDaily = (id: string, items: IItem[]) => (dispatch: AppDispatch) => {
+
+    financeApi.put<IDaily>(`/daily/${id}`, { items })
+        .then(response => {
+            dispatch(update_daily(response.data))
         })
         .catch(error => {
             console.log(error);
